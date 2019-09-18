@@ -57,7 +57,7 @@ public class FluorescenceRatioCellCntrImageCanvas extends ImageCanvas {
 	private boolean showNumbers = false;
 	private boolean showAll = false;
 	private Font font = new Font("SansSerif", Font.PLAIN, 10);
-	private int radius = 4;
+	private int radius = 10;
 
 	/** Creates a new instance of CellCntrImageCanvas */
 	public FluorescenceRatioCellCntrImageCanvas(ImagePlus img, Vector typeVector,
@@ -196,48 +196,6 @@ public class FluorescenceRatioCellCntrImageCanvas extends ImageCanvas {
 			Calibration cal = img.getCalibration();
 			int W = ip.getWidth();
 			int H = ip.getHeight();
-
-			byte[] pixels = null;
-			if (img.getNChannels() == 3) {
-				RGBStackSplitter splitter = new RGBStackSplitter();
-				splitter.split(img.getStack(), true);
-				ImagePlus green = new ImagePlus("Green", splitter.green);
-				green.setCalibration(cal);
-				byte[] G = (byte[]) green.getProcessor().convertToByte(false)
-						.getPixels();
-				ImagePlus blue = new ImagePlus("Blue", splitter.blue);
-				blue.setCalibration(cal);
-				byte[] B = (byte[]) blue.getProcessor().convertToByte(false)
-						.getPixels();
-				ImagePlus red = new ImagePlus("Red", splitter.red);
-				red.setCalibration(cal);
-				byte[] R = (byte[]) red.getProcessor().convertToByte(false)
-						.getPixels();
-				double sumR = 0;
-				double sumG = 0;
-				double sumB = 0;
-				for (int i = 0; i < H; i++) {
-					for (int j = 0; j < W; j++) {
-						int r = 0xff & R[i * W + j];
-						int g = 0xff & G[i * W + j];
-						int b = 0xff & B[i * W + j];
-						sumR += r;
-						sumG += g;
-						sumB += b;
-					}
-				}
-				if (sumR > sumG && sumR > sumB)
-					pixels = R; // R
-				else if (sumG > sumR && sumG > sumB)
-					pixels = G; // G
-				else
-					pixels = B; // B
-			}
-			else
-			{
-				pixels = (byte[]) img.getProcessor().convertToByte(false).getPixels();
-			}
-
 			int radius2 = radius * radius;
 			FileOutputStream rawData = new FileOutputStream(
 					"FluorescenceRatioRawData.txt",
@@ -265,7 +223,6 @@ public class FluorescenceRatioCellCntrImageCanvas extends ImageCanvas {
 				ListIterator mit = mv.listIterator();
 				double muSum = 0, sigma2Sum = 0;
 				double muN = 0;
-				int ii = 0;
 				while (mit.hasNext()) {
 					FluorescenceRatioCellCntrMarker m = (FluorescenceRatioCellCntrMarker) mit.next();
 					int xM = m.getX();
@@ -279,10 +236,9 @@ public class FluorescenceRatioCellCntrImageCanvas extends ImageCanvas {
 							if (sx2 + sy2 < radius2 && xM + sx >= 0
 									&& xM + sx < W && yM + sy >= 0
 									&& yM + sy < H) {
-								int pixelValue = 0xff & pixels[(yM + sy) * W
-										+ xM + sx];
-								value += pixelValue;
-								A++;
+								
+								 value += ip.getPixelValue(xM+sx,yM+sy);
+		                            A++;
 							}
 						}
 					}
@@ -294,7 +250,6 @@ public class FluorescenceRatioCellCntrImageCanvas extends ImageCanvas {
 					muN++;
 					IJ.write(typeLabel + "\t" + value);
 					pRawData.println(typeLabel + "\t" + value);
-					ii++;
 				}
 				muobs[typeID - 1] = (muSum / muN);
 				sigma2obs[typeID - 1] = (sigma2Sum / muN) - muobs[typeID - 1]

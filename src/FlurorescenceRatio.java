@@ -412,12 +412,8 @@ public class FlurorescenceRatio extends JFrame implements ActionListener,
 		reset();
 		img = WindowManager.getCurrentImage();
 		boolean v139t = IJ.getVersion().compareTo("1.39t") >= 0;
-		boolean isGray = false;
 		if (img == null) {
 			IJ.noImage();
-		} else if (img.getBitDepth() ==8 ) {
-			isGray = true;
-			IJ.showMessage("It is needed a RGB image");
 		} else if (img.getStackSize() == 1) {
 			ImageProcessor ip = img.getProcessor();
 			ip.resetRoi();
