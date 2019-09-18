@@ -14,7 +14,7 @@ The plugin helps you to obtain a ratio of the fluorescence intensity observed at
 
 •STEP 6. Click “Measure Cell” button. In this step, you will obtain the ratio measure of the fluorescence signal in R1 zone respect to R2 area.
 
-•STEP 7. Repeat these previous steps as many measurements as you need. (The data will be saved by the program). Once you finish, click on “Final Measure” btton. the data corresponding to the “Ratio” from all measurements will appear in a new window called "Results" and they can be exported for further analysis.
+•STEP 7. Repeat these previous steps as many measurements as you need. (The data will be saved by the program). Once you finish, click on “Final Measure” btton. The data corresponding to the “Ratio” from all measurements will appear in a new window called "Results" and they can be exported for further analysis.
 
 
 Note: the size/area of the circles can be adjusted by using the “Larger” (bigger size) or “Smaller” (smaller size) buttoms. If you want to delete the last circle made, you should press on “Delete” button. Moreover, if you need to delete every circle made, you shall press on "Reset" button. 
