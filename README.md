@@ -2,7 +2,7 @@
 
 The plugin helps you to obtain a ratio of the fluorescence intensity observed at a particular zone of the cell respect other areas. The plugin takes into account the amount of fluorescence spread in the different parts of the cell and the fuorescence apported by the background. To achive a correct installation and launching, you should download the one single JAR file [FluorescenceRatio_.jar](https://github.com/anaacayuela/FluorescenceRatio_/releases/download/1.0/FluorescenceRatio_.jar) and place it into the "plugins" folder of ImageJ/Fiji. For a better use of this plugin, you shall follow the next steps:
 
-##•STEP 1. 
+## •STEP 1. 
 It is better to try to analyze the maximal projection of the image channel you select using ImageJ/Fiji -> ZProject... tool (ImageJ/Fiji -> Stacks -> ZProject... -> Max Intensity) althought this step is not essential, you can start analyzing whichever image type you desire. 
 
 ![stepf1](https://user-images.githubusercontent.com/54528366/65419677-7b819680-ddff-11e9-940d-df166a4be066.png)
